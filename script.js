@@ -54,17 +54,37 @@ const perguntas = [
 const quiz = document.querySelector("#quiz");
 const template = document.querySelector("template");
 
+const corretas = new Set();
+const totalPerguntas = perguntas.length;
+const mostrarTotal = document.querySelector("#acertos span");
+
 perguntas.forEach((item) => {
   const quizItem = template.content.cloneNode(true); // Clone do conteúdo dentro de template
-  quizItem.querySelector("#pergunta").textContent = item.pergunta; // Adiciona ou span #pergunta a pergunta do nosso objeto
+  quizItem.querySelector("#pergunta").textContent = item.pergunta; // Adiciona ao span #pergunta a pergunta do nosso objeto
 
-  item.respostas.forEach((item) => {
+  item.respostas.forEach((resposta) => {
     const quizRespostas = quizItem.querySelector("ul li").cloneNode(true); // Clona o conteúdo de dentro da li
-    quizRespostas.querySelector("span").textContent = item; //
-    quizItem.querySelector("ul").appendChild(quizRespostas);
+    quizRespostas.querySelector("span").textContent = resposta; // Adiciona no span #resposta a opção de resposta
+    quizRespostas
+      .querySelector("input")
+      .setAttribute("name", "pergunta-" + perguntas.indexOf(item)); // Adiciona um atributo único nas resposta de acordo com a pergunta
+    quizRespostas.querySelector("input").value =
+      item.respostas.indexOf(resposta); // Adiciona um value diferente para cada opção de resposta da pergunta
+
+    quizRespostas.querySelector("input").addEventListener("input", (event) => {
+      const checkResposta = event.target.value == item.correta; // Boolean
+
+      corretas.delete(item);
+      if (checkResposta) {
+        corretas.add(item);
+      }
+      mostrarTotal.textContent = `${corretas.size} de ${totalPerguntas}`;
+    });
+
+    quizItem.querySelector("ul").appendChild(quizRespostas); // Adiciona quizRespostas abaixo da ul de quizItem
   });
 
   quizItem.querySelector("ul li").remove();
 
-  quiz.appendChild(quizItem);
+  quiz.appendChild(quizItem); // Adiciona o quizItem dentro de quiz
 });
