@@ -1,7 +1,7 @@
 const perguntas = [
   {
     pergunta: "Qual é a capital do Brasil?",
-    respostas: ["Brasília", "Rio de Janeiro", "São Paulo"],
+    respostas: ["Brasília", "Rio de Janeiro", "São Paulo", "Curitiba"],
     correta: 0,
   },
   {
@@ -75,16 +75,18 @@ perguntas.forEach((item) => {
       const checkResposta = event.target.value == item.correta; // Boolean
 
       corretas.delete(item);
+
       if (checkResposta) {
         corretas.add(item);
       }
+
       mostrarTotal.textContent = `${corretas.size} de ${totalPerguntas}`;
     });
 
     quizItem.querySelector("ul").appendChild(quizRespostas); // Adiciona quizRespostas abaixo da ul de quizItem
   });
 
-  quizItem.querySelector("ul li").remove();
+  quizItem.querySelector("ul li").remove(); // remove o primeiro li da ul
 
   quiz.appendChild(quizItem); // Adiciona o quizItem dentro de quiz
 });

@@ -3,21 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
     <title>Quiz - NLW</title>
+    <link rel="stylesheet" href="/styles/style.css" />
   </head>
   <body>
-    <div id="quiz"></div>
-    <template>
-      <div id="quiz-item">
-        <span id="pergunta"></span>
-        <ul>
-          <li>
-            <input type="radio" name="resposta-item" value="0" />
-            <span id="resposta"></span>
-          </li>
-        </ul>
-      </div>
-    </template>
+    <main>
+      <div id="quiz"></div>
+      <template>
+        <div id="quiz-item">
+          <span id="pergunta"></span>
+          <ul>
+            <li>
+              <input type="radio" name="resposta-item" value="0" />
+              <span id="resposta"></span>
+            </li>
+          </ul>
+        </div>
+      </template>
+    </main>
     <div id="acertos">
       <strong>Acertos</strong>
       <span>0 de 10</span>
