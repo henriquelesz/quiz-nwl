@@ -1,7 +1,7 @@
 const perguntas = [
   {
     pergunta: "Qual é a capital do Brasil?",
-    respostas: ["Brasília", "Rio de Janeiro", "São Paulo", "Curitiba"],
+    respostas: ["Brasília", "Rio de Janeiro", "São Paulo"],
     correta: 0,
   },
   {
@@ -69,16 +69,24 @@ perguntas.forEach((item) => {
       .querySelector("input")
       .setAttribute("name", "pergunta-" + perguntas.indexOf(item)); // Adiciona um atributo único nas resposta de acordo com a pergunta
     quizRespostas.querySelector("input").value =
-      item.respostas.indexOf(resposta); // Adiciona um value diferente para cada opção de resposta da pergunta
+      item.respostas.indexOf(resposta); // Adiciona um 'value' diferente para cada opção de resposta da pergunta
 
     quizRespostas.querySelector("input").addEventListener("input", (event) => {
       const checkResposta = event.target.value == item.correta; // Boolean
+      const selectedInput = event.target; // teste
 
       corretas.delete(item);
 
       if (checkResposta) {
         corretas.add(item);
       }
+
+      // Travar opções depois de selecionar uma
+      document.querySelectorAll('input[name="' + selectedInput.name + '"]').forEach((input) => {
+          if (input !== selectedInput) {
+            input.disabled = true;
+          }
+        });
 
       mostrarTotal.textContent = `${corretas.size} de ${totalPerguntas}`;
     });
@@ -90,3 +98,7 @@ perguntas.forEach((item) => {
 
   quiz.appendChild(quizItem); // Adiciona o quizItem dentro de quiz
 });
+
+if (corretas <= totalPerguntas) {
+  document.remove;
+}
